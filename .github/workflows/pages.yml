@@ -1,0 +1,46 @@
+# Publishes this repository to GitHub Pages.
+#
+# The site is static — plain HTML, CSS and one JS file — so there is no build
+# step. The whole repo root is uploaded as the Pages artifact.
+#
+# One-time setup after creating the repo:
+#   Settings → Pages → Source = "GitHub Actions"
+# Without that, this workflow runs and then fails at the deploy step.
+
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it; cancelling mid-deploy
+# can leave Pages serving a half-published state.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      # No build step: the repo root is already the finished site. If one is
+      # ever added, run it here and point `path` at its output directory.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
