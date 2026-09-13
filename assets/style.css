@@ -534,6 +534,67 @@ em { font-style: italic; }
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
 
+/* --- Increased contrast ---------------------------------------------- */
+
+/* Honoured when the reader has asked their OS for more contrast. Every value
+   below clears WCAG AAA (7:1) against the darkest background it can land on,
+   where the base palette targets AA (4.5:1):
+     light --text-muted #2b2925 on --bg-alt [11.51]
+     light --text-faint #3d3a34 on --bg-alt  [8.99]
+     light --accent     #743420 on --bg-alt  [7.39], white on it [9.08]
+     dark  --text-faint #c3beb0 on --surface-2 [7.42]
+     dark  --accent     #f0a888 on --surface-2 [6.99], --bg on it [8.45]
+   Borders move too, for WCAG 1.4.11: --border #8a8474 is 3.21:1 on --bg.
+
+   This block must stay BELOW the three base theme blocks, so it wins on equal
+   specificity, and ABOVE @media print, so printing still wins over it. The
+   nested dark rules repeat the base selectors exactly, because
+   `:root:not([data-theme="light"])` outranks a bare `:root` and would
+   otherwise keep the base dark tokens. */
+@media (prefers-contrast: more) {
+  :root {
+    --text:          #000000;
+    --text-muted:    #2b2925;
+    --text-faint:    #3d3a34;
+    --border:        #8a8474;
+    --border-strong: #6e695c;
+    --accent:        #743420;
+    --accent-hover:  #5c2917;
+    --accent-soft:   #f7ece5;
+    --focus:         #0b4ea0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --text:          #ffffff;
+      --text-muted:    #dcd8cd;
+      --text-faint:    #c3beb0;
+      --border:        #7a756c;
+      --border-strong: #948e83;
+      --accent:        #f0a888;
+      --accent-hover:  #f8c0a6;
+      --accent-soft:   #2c2118;
+      --focus:         #a8cdfa;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --text:          #ffffff;
+    --text-muted:    #dcd8cd;
+    --text-faint:    #c3beb0;
+    --border:        #7a756c;
+    --border-strong: #948e83;
+    --accent:        #f0a888;
+    --accent-hover:  #f8c0a6;
+    --accent-soft:   #2c2118;
+    --focus:         #a8cdfa;
+  }
+
+  /* The header's translucent blur puts page content faintly behind the nav.
+     Make it opaque so nothing shows through. */
+  .site-header { background: var(--bg); backdrop-filter: none; }
+}
+
 /* --- Print ---------------------------------------------------------- */
 
 /* This page is a reference — twelve sourced origin stories and a timeline —
