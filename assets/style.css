@@ -470,11 +470,26 @@ em { font-style: italic; }
   margin: 0 0 1.75rem;
   padding: 0;
   display: grid;
-  gap: 0.45rem;
+  /* 0.7rem, not 0.45rem: the links below carry vertical padding to reach a
+     24px hit area, and at the old gap those padded boxes met each other. */
+  gap: 0.7rem;
   font-size: var(--step-2);
+  /* 2, not the inherited 1.65. The padded links below come to a 25.6px hit
+     box, and vertical padding on an inline element does NOT push lines apart
+     — so at 1.65 (21.45px) the hit areas of two different links on
+     consecutive lines overlapped by 4px, and a tap near the boundary landed
+     on the wrong source. The line box has to be at least as tall as the hit
+     box. Measured with getClientRects(), not getBoundingClientRect(): the
+     latter returns the union of a wrapped link's fragments and reports
+     overlaps that are not real. */
+  line-height: 2;
   color: var(--text-faint);
 }
-.source-list a { color: var(--text-muted); }
+/* These measured 18px tall — under WCAG 2.5.8's 24px minimum, and they sit in
+   pairs separated by a middot, so the criterion's spacing exception does not
+   rescue them either. Vertical padding grows the hit box without reflowing
+   anything; see the line-height note above for the catch that comes with it. */
+.source-list a { color: var(--text-muted); padding-block: 0.25rem; }
 .source-list a:hover { color: var(--accent); }
 
 .colophon {
