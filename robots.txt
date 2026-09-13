@@ -1,0 +1,8 @@
+# Named After — https://jonathanmathews449-stack.github.io/named-after/
+#
+# There is nothing here to keep out of an index: one public page, no user
+# content, no query parameters, no private paths. So the rule is simply "yes".
+User-agent: *
+Allow: /
+
+Sitemap: https://jonathanmathews449-stack.github.io/named-after/sitemap.xml

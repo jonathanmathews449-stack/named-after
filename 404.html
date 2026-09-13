@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Not found — Named After</title>
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f0eee6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f1e1d" media="(prefers-color-scheme: dark)">
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✳️</text></svg>">
+
+  <!--
+    Styles are inlined rather than linked, on purpose.
+
+    GitHub Pages serves this file for ANY missing path under the site,
+    including deep ones like /named-after/a/b/c. A relative <link> would
+    resolve against that path and 404 too, leaving an unstyled page exactly
+    when something has already gone wrong. Inlining makes the page correct at
+    every depth, and it is small enough that the extra bytes are free.
+
+    The tokens are copied from assets/style.css. They are only the handful
+    this page uses; if the palette there changes, this follows by hand.
+  -->
+  <style>
+    :root {
+      --bg:         #f0eee6;
+      --surface:    #faf9f5;
+      --border:     #ddd9cc;
+      --text:       #1f1e1d;
+      --text-muted: #59564f;
+      --accent:     #9f4e31;
+      --on-accent:  #fdfcfa;
+      --focus:      #1a6ec4;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+               "Times New Roman", serif;
+      --sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+      --mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:         #1f1e1d;
+        --surface:    #262624;
+        --border:     #3a3835;
+        --text:       #f0eee6;
+        --text-muted: #b4afa2;
+        --accent:     #e08a6b;
+        --on-accent:  #1f1e1d;
+        --focus:      #7ab5f5;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 2rem 1.25rem;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { max-width: 34rem; text-align: center; }
+
+    .code {
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 1rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 6vw, 2.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 600;
+      margin: 0 0 0.9rem;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    p { margin: 0 0 1.1rem; color: var(--text-muted); }
+
+    .actions { margin-top: 1.6rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.65rem 1.3rem;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+
+<main>
+  <p class="code">Error 404</p>
+  <h1>This page isn’t named after <em>anything</em>.</h1>
+  <p>
+    It doesn’t exist — which, on a site about where names come from, is at
+    least thematically consistent. The link that brought you here is probably
+    mistyped or out of date.
+  </p>
+  <div class="actions">
+    <a class="btn" href="/named-after/">Back to the origin stories</a>
+  </div>
+</main>
+
+</body>
+</html>

@@ -7,9 +7,31 @@
   <meta name="description" content="Claude comes from a mathematician. Nvidia comes from envy. Grok comes from a 1961 sci-fi novel. The origin stories behind the names in artificial intelligence.">
   <meta name="color-scheme" content="light dark">
 
+  <!-- Tints the browser chrome on mobile. Two entries, because the page
+       follows the OS and a single value would clash in one of the themes. -->
+  <meta name="theme-color" content="#f0eee6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f1e1d" media="(prefers-color-scheme: dark)">
+
+  <!-- The trailing slash matters: GitHub Pages serves this page at the
+       directory URL, and a canonical without it points at a 301. -->
+  <link rel="canonical" href="https://jonathanmathews449-stack.github.io/named-after/">
+
   <meta property="og:title" content="Named After — where AI companies got their names">
   <meta property="og:description" content="Claude comes from a mathematician. Nvidia comes from envy. Grok comes from a 1961 sci-fi novel.">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Named After">
+  <meta property="og:url" content="https://jonathanmathews449-stack.github.io/named-after/">
+
+  <!-- og:image must be a raster file and an absolute URL. Every platform
+       ignores an SVG here, and several refuse a relative path, so the
+       favicon's inline-SVG trick does not transfer. Built from
+       og-source.html by scripts/og-image.sh; the dimensions are declared so
+       the card reserves the right space before the image arrives. -->
+  <meta property="og:image" content="https://jonathanmathews449-stack.github.io/named-after/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Named After — every AI company is named after something. Claude: a mathematician. Nvidia: Latin for envy. Grok: a 1961 novel.">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✳️</text></svg>">
   <link rel="stylesheet" href="assets/style.css">

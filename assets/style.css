@@ -9,6 +9,15 @@
      :root                                  light (also the no-preference default)
      @media (prefers-color-scheme: dark)    follows the OS, unless overridden
      :root[data-theme="..."]                explicit user choice, wins over both
+
+   These four tokens are pinned by contrast, not by taste. Measured against
+   every background they actually sit on, all pass WCAG AA (4.5:1) with the
+   worst case in brackets:
+     light --accent      #9f4e31  on --accent-soft  [4.65]  and as a button
+                                  ground under --on-accent [5.68]
+     light --text-faint  #6a6659  on --bg-alt       [4.55]
+     dark  --text-faint  #9d9889  on --surface-2    [4.78]
+   Lightening any of them fails again. Re-measure before changing one.
    ========================================================================== */
 
 :root {
@@ -21,10 +30,10 @@
 
   --text:          #1f1e1d;
   --text-muted:    #59564f;
-  --text-faint:    #85806f;
+  --text-faint:    #6a6659;
 
-  --accent:        #bd5d3a;
-  --accent-hover:  #a04a2b;
+  --accent:        #9f4e31;
+  --accent-hover:  #853f27;
   --accent-soft:   #f2e3da;
   --on-accent:     #fdfcfa;
 
@@ -61,7 +70,7 @@
 
     --text:          #f0eee6;
     --text-muted:    #b4afa2;
-    --text-faint:    #8c8779;
+    --text-faint:    #9d9889;
 
     --accent:        #e08a6b;
     --accent-hover:  #eda186;
@@ -83,7 +92,7 @@
 
   --text:          #f0eee6;
   --text-muted:    #b4afa2;
-  --text-faint:    #8c8779;
+  --text-faint:    #9d9889;
 
   --accent:        #e08a6b;
   --accent-hover:  #eda186;
