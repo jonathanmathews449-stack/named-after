@@ -151,3 +151,32 @@
     out.innerHTML = queue.pop();
   });
 })();
+
+/* --- Print: open every card --------------------------------------- */
+
+(function initPrintExpand() {
+  "use strict";
+
+  // The stylesheet handles this on its own with ::details-content, which is
+  // the correct and JS-free route. This exists only for engines that predate
+  // that pseudo-element (before Chrome 131 / Safari 18.4 / Firefox 139),
+  // where a closed <details> cannot be opened from CSS at all and eleven of
+  // the twelve stories would print as a one-line summary.
+  if (CSS && CSS.supports && CSS.supports("selector(details::details-content)")) return;
+
+  var reopened = [];
+
+  window.addEventListener("beforeprint", function () {
+    reopened = [];
+    Array.prototype.forEach.call(document.querySelectorAll("details.card"), function (d) {
+      if (!d.open) { d.open = true; reopened.push(d); }
+    });
+  });
+
+  // Put the page back exactly as the reader left it — anything we opened, and
+  // only what we opened.
+  window.addEventListener("afterprint", function () {
+    reopened.forEach(function (d) { d.open = false; });
+    reopened = [];
+  });
+})();

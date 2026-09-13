@@ -533,3 +533,72 @@ em { font-style: italic; }
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* --- Print ---------------------------------------------------------- */
+
+/* This page is a reference — twelve sourced origin stories and a timeline —
+   so people save it as a PDF or print it. Without this block that produced
+   something close to useless: the cards are <details>, so eleven of the
+   twelve stories printed as collapsed one-line summaries, the sticky header
+   landed on top of the first section, and the dark theme burned a full page
+   of toner.
+   Printing has no viewport and no interaction, so:
+     * force the light palette regardless of theme or OS preference
+     * open every card, since the reader cannot click paper
+     * drop every control, which does nothing on paper
+     * print link targets, which are the point of a sourced page */
+@media print {
+  :root, :root[data-theme="dark"] {
+    --bg:            #fff;
+    --bg-alt:        #fff;
+    --surface:       #fff;
+    --surface-2:     #fff;
+    --border:        #ccc;
+    --border-strong: #999;
+    --text:          #000;
+    --text-muted:    #333;
+    --text-faint:    #444;
+    --accent:        #000;
+    --accent-hover:  #000;
+    --accent-soft:   #fff;
+    --on-accent:     #fff;
+  }
+
+  body { font-size: 10.5pt; line-height: 1.45; }
+
+  /* Controls, and the sticky header that would overprint the first section. */
+  .site-header,
+  .skip-link,
+  .nav-toggle,
+  .theme-toggle,
+  .site-nav,
+  #fact-btn { display: none !important; }
+
+  /* The cards are <details>, so without this eleven of twelve print as a
+     one-line summary and the page is worthless on paper.
+     It has to be ::details-content. A closed <details> is NOT hidden with
+     display:none on its children — the child keeps `display: block` and even
+     reports a clientHeight; the hiding happens with content-visibility on an
+     internal slot, which only this pseudo-element can reach. `display: block
+     !important` on .card-body looks like the fix, changes nothing, and tests
+     clean if you check the child's computed style instead of the rendered
+     height of the <details> itself. Supported in Chrome 131+, Safari 18.4+
+     and Firefox 139+; main.js covers older engines via beforeprint. */
+  .card::details-content { content-visibility: visible !important; }
+  .card > summary { list-style: none; }
+  .card > summary::-webkit-details-marker { display: none; }
+
+  /* One column, and never split a story across a page break. */
+  .card-grid { display: block; }
+  .card { break-inside: avoid; margin-bottom: 0.6rem; border: 1px solid var(--border); }
+  .timeline li, .fact-box { break-inside: avoid; }
+  .section { padding-block: 0.9rem; }
+  h1 { font-size: 22pt; }
+  h2 { font-size: 14pt; break-after: avoid; }
+  h3 { font-size: 11pt; break-after: avoid; }
+
+  /* A sourced page whose sources are invisible on paper is not sourced. */
+  .source-list a::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
+  .source-list a { padding-block: 0; }
+  .source-list { line-height: 1.45; }
+}
