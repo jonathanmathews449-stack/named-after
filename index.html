@@ -35,6 +35,31 @@
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✳️</text></svg>">
   <link rel="stylesheet" href="assets/style.css">
+
+  <!--
+    assets/main.js only enhances this page: the cards are <details>, and the
+    theme follows prefers-color-scheme on its own. But three controls exist
+    purely to be scripted, and with JavaScript off they are dead buttons that
+    still look pressable. Worse, at mobile widths .site-nav is display:none
+    until main.js adds .is-open, so without JS the navigation was not
+    reachable at all — the hamburger was the only way in and it did nothing.
+
+    This block only applies when scripting is off, so it costs scripted
+    visitors nothing.
+  -->
+  <noscript>
+    <style>
+      /* Show the links instead of a toggle that can never be pressed. */
+      @media (max-width: 768px) {
+        .nav-toggle { display: none; }
+        .site-nav   { display: flex; }
+      }
+      /* The theme still follows the OS; only the manual override is gone. */
+      .theme-toggle { display: none; }
+      /* One fact is already on the page and reads fine alone. */
+      #fact-btn { display: none; }
+    </style>
+  </noscript>
 </head>
 <body>
 
