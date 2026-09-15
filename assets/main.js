@@ -1,11 +1,14 @@
 /* ==========================================================================
    Named After — behaviour
    --------------------------------------------------------------------------
-   Three independent blocks: nav toggle, theme toggle, random fact. Each is
-   self-contained and fails quiet, so a change to one cannot break the others.
+   Independent blocks: nav toggle, theme toggle, random fact, story search, and
+   a print fallback. Each is self-contained and fails quiet, so a change to one
+   cannot break the others.
 
-   The page works fully without this file: the cards are <details> elements,
-   and the theme follows prefers-color-scheme on its own.
+   The page works fully without this file: the cards are <details> elements, and
+   the theme follows prefers-color-scheme on its own. The one control that would
+   be dead without it — the search field — ships hidden and is unhidden by the
+   block that makes it work.
    ========================================================================== */
 
 /* --- Mobile nav ----------------------------------------------------- */
@@ -154,6 +157,89 @@
     if (!queue.length) refill();
     out.innerHTML = queue.pop();
   });
+})();
+
+/* --- Story search --------------------------------------------------- */
+
+(function initStorySearch() {
+  "use strict";
+
+  var panel = document.getElementById("filter");
+  var input = document.getElementById("story-search");
+  var clear = document.getElementById("filter-clear");
+  var count = document.getElementById("filter-count");
+  var empty = document.getElementById("filter-empty");
+  var emptyTerm = document.getElementById("filter-empty-term");
+  var emptyReset = document.getElementById("filter-empty-reset");
+  var cards = Array.prototype.slice.call(document.querySelectorAll("details.card"));
+  if (!panel || !input || !cards.length) return;
+
+  // Indexed once. The text never changes, and reading textContent off fifteen
+  // cards on every keystroke is work for nothing.
+  //
+  // data-tags is folded in deliberately: the tags are not written anywhere a
+  // reader can see, so typing "chips" or "tools" would otherwise match nothing
+  // while looking exactly like a search that is broken.
+  var index = cards.map(function (card) {
+    var tags = card.getAttribute("data-tags") || "";
+    return { card: card, text: (card.textContent + " " + tags).toLowerCase().replace(/\s+/g, " ") };
+  });
+
+  var total = cards.length;
+
+  // Counted, never written down. "fifteen" in the markup would go stale the next
+  // time a story is added — which is exactly what happened to three other counts
+  // on this page in task 011.
+  emptyReset.textContent = "show all " + total + " " + (total === 1 ? "story" : "stories");
+
+  function plural(n) { return n === 1 ? "story" : "stories"; }
+
+  function apply(rawTerm) {
+    var term = rawTerm.trim().toLowerCase();
+    var matches = 0;
+
+    index.forEach(function (entry) {
+      var hit = term === "" || entry.text.indexOf(term) !== -1;
+      entry.card.hidden = !hit;
+      if (hit) matches += 1;
+    });
+
+    clear.hidden = term === "";
+
+    if (term === "") {
+      count.textContent = total + " " + plural(total) + ". Search names, tags, or the stories themselves.";
+    } else {
+      count.textContent = matches + " of " + total + " " + plural(total) + " match “" + rawTerm.trim() + "”.";
+    }
+
+    // The empty state carries the term, so the live region and the visible page
+    // say the same thing rather than leaving an unlabelled blank where the grid was.
+    emptyTerm.textContent = "“" + rawTerm.trim() + "”";
+    empty.hidden = !(term !== "" && matches === 0);
+  }
+
+  input.addEventListener("input", function () { apply(input.value); });
+
+  // Escape clears rather than blurs: in a search field that is what it means,
+  // and it saves selecting the text to delete it.
+  input.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || input.value === "") return;
+    input.value = "";
+    apply("");
+  });
+
+  function reset(focusTarget) {
+    input.value = "";
+    apply("");
+    focusTarget.focus();
+  }
+
+  // Both of these hide themselves, so both hand focus somewhere rendered.
+  clear.addEventListener("click", function () { reset(input); });
+  emptyReset.addEventListener("click", function () { reset(input); });
+
+  panel.hidden = false;
+  apply("");
 })();
 
 /* --- Print: open every card --------------------------------------- */

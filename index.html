@@ -134,6 +134,24 @@
         links are at the bottom.
       </p>
 
+      <!--
+        Hidden until assets/main.js unhides it. The whole page works without
+        that file — the cards are <details> — and a search box that cannot
+        search is worse than no search box at all, so this one does not exist
+        until the thing that makes it work has loaded. Same reasoning as
+        PRICESHOCK's noscript block, reached from the other direction.
+      -->
+      <div class="filter" id="filter" hidden>
+        <div class="filter-field">
+          <label for="story-search">Search the collection</label>
+          <input type="search" id="story-search" name="story-search"
+                 placeholder="Try “Greek”, “chips”, or “Sesame Street”"
+                 autocomplete="off" spellcheck="false" />
+          <button type="button" class="filter-clear" id="filter-clear" hidden>Clear</button>
+        </div>
+        <p class="filter-count" id="filter-count" role="status"></p>
+      </div>
+
       <div class="card-grid">
 
         <!-- Anthropic -->
@@ -583,6 +601,12 @@
         </details>
 
       </div>
+
+      <p class="filter-empty" id="filter-empty" hidden>
+        Nothing matches <strong id="filter-empty-term"></strong>. The collection
+        covers labs, models, chips, tools and a little history — try a shorter
+        word, or <button type="button" class="linkish" id="filter-empty-reset">show every story</button>.
+      </p>
     </div>
   </section>
 

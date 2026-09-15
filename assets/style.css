@@ -287,6 +287,86 @@ em { font-style: italic; }
 .section h2 { font-size: var(--step3); }
 .section-lede { color: var(--text-muted); max-width: 52ch; margin-bottom: 2.25rem; }
 
+/* --- Story search ---------------------------------------------------- */
+
+/* Injected visible by assets/main.js; see the comment on #filter in the HTML. */
+.filter { margin: -0.75rem 0 2.25rem; }
+.filter[hidden] { display: none; }
+
+.filter-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.75rem;
+}
+.filter-field label {
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.filter-field input {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.4rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--step-1);
+}
+.filter-field input::placeholder { color: var(--text-faint); }
+.filter-field input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* 0.55rem of vertical padding puts this over WCAG 2.5.8's 24px minimum at the
+   site's base size — the same trap task 008 found in the footer links. */
+.filter-clear {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.4rem;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--step-1);
+  cursor: pointer;
+}
+.filter-clear:hover { border-color: var(--accent); color: var(--accent); }
+.filter-clear[hidden] { display: none; }
+
+.filter-count {
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+  font-size: var(--step-1);
+  min-height: 1.5em;   /* holds its line so results do not jump as you type */
+}
+
+.filter-empty {
+  margin: 0;
+  padding: 1.5rem 0 0;
+  color: var(--text-muted);
+  max-width: 52ch;
+}
+.filter-empty[hidden] { display: none; }
+.filter-empty strong { color: var(--text); }
+
+/* A button that reads as a link. Kept a real <button> because it performs an
+   action rather than going anywhere. */
+.linkish {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.linkish:hover { color: var(--accent-hover); }
+
+/* A card hidden by the filter must leave the accessibility tree too, which the
+   hidden attribute does; this only stops the grid reserving its slot. */
+.card[hidden] { display: none; }
+
 /* --- Origin cards --------------------------------------------------- */
 
 .card-grid {
