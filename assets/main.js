@@ -127,7 +127,11 @@
     "Perplexity is named after the metric for how surprised a language model is by text. Lower is better — an odd thing to name yourself after.",
     "Cohere was co-founded by Aidan Gomez, who was an intern when he co-authored the paper that introduced the Transformer.",
     "In September 2026 Nvidia — the envy company from the diner — agreed to buy Hugging Face, the emoji company, for about $13 billion.",
-    "Gemini is the constellation of the twins. The model was built by two research teams, Google Brain and DeepMind, merged after a decade as rivals."
+    "Gemini is the constellation of the twins. The model was built by two research teams, Google Brain and DeepMind, merged after a decade as rivals.",
+    "Nvidia named its Blackwell chips after David Harold Blackwell, a mathematician who worked on game theory and was the first Black scholar inducted into the National Academy of Sciences.",
+    "Jupyter is <em>Ju</em>lia, <em>Py</em>thon and <em>R</em> — and an homage to Galileo, who noted three points of light beside Jupiter on 7 January 1610 and a fourth six nights later.",
+    "ELMo stands for Embeddings from Language Models. BERT, which followed it, stands for Bidirectional Encoder Representations from Transformers. Neither paper mentions Sesame Street.",
+    "In 2019 two different research groups — Baidu and Tsinghua — published two unrelated models, months apart, both called ERNIE."
   ];
 
   // Shuffle through a queue rather than picking at random each press, so the
@@ -160,8 +164,8 @@
   // The stylesheet handles this on its own with ::details-content, which is
   // the correct and JS-free route. This exists only for engines that predate
   // that pseudo-element (before Chrome 131 / Safari 18.4 / Firefox 139),
-  // where a closed <details> cannot be opened from CSS at all and eleven of
-  // the twelve stories would print as a one-line summary.
+  // where a closed <details> cannot be opened from CSS at all and fourteen of
+  // the fifteen stories would print as a one-line summary.
   if (CSS && CSS.supports && CSS.supports("selector(details::details-content)")) return;
 
   var reopened = [];
