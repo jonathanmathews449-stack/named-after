@@ -201,6 +201,12 @@ em { font-style: italic; }
   font-weight: 500;
 }
 .site-nav a:hover { color: var(--text); }
+.site-nav a[aria-current="page"] {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.35rem;
+}
 
 .nav-toggle, .theme-toggle {
   display: inline-flex;
